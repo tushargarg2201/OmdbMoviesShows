@@ -42,6 +42,7 @@ class MovieListActivity : AppCompatActivity(), MovieListAdapter.ListenerInterfac
 
     private var searchList = listOf<Search>()
     private var favoriteList = listOf<Search>()
+    private var passingList = ArrayList<Search>();
     private var pageNumber = 1
     private var searchQuery = "";
 
@@ -146,6 +147,7 @@ class MovieListActivity : AppCompatActivity(), MovieListAdapter.ListenerInterfac
     private fun subscribeObservers() {
         moviewViewModel.getSearchList().observe(this, Observer {
             searchList = it
+            passingList = it as ArrayList<Search>
             movieListAdapter.apply {
                 setData(it)
                 notifyDataSetChanged()
@@ -171,9 +173,16 @@ class MovieListActivity : AppCompatActivity(), MovieListAdapter.ListenerInterfac
     }
 
     override fun onClickEvent(position: Int) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
+//        val intent = Intent(this, MovieDetailActivity::class.java)
+//        intent.putExtra("favorite_selected", isFavoriteSelected(position))
+//        intent.putExtra("item_selected", searchList[position])
+//        startActivity(intent)
+
+        val intent = Intent(this, FullScreenActivity::class.java)
         intent.putExtra("favorite_selected", isFavoriteSelected(position))
-        intent.putExtra("item_selected", searchList[position])
+        intent.putExtra("item_selected", passingList[position])
+        intent.putParcelableArrayListExtra("array_list", passingList)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 

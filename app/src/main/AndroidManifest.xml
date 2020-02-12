@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".ui.MovieDetailActivity" />
+        <activity android:name=".ui.FullScreenActivity" />
     </application>
 
 </manifest>
